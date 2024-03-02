@@ -35,6 +35,28 @@ app.get('/restaurants', (req, res) => {
     .catch((err) => console.log(err));
 });
 
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id;
+
+  return Restaurant.findByPk(id, {
+    attributes: [
+      'id',
+      'name',
+      'name_en',
+      'category',
+      'image',
+      'location',
+      'phone',
+      'google_map',
+      'rating',
+      'description',
+    ],
+    raw: true,
+  })
+    .then((restaurant) => res.render('restaurant', { restaurant }))
+    .catch((err) => console.log(err));
+});
+
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
 });

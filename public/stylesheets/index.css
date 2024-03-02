@@ -15,8 +15,10 @@ header {
   z-index: -1;
   margin: -5px;
   height: 360px;
-  background: #dddddd center center
-    url('https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg');
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url('https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg')
+      center center;
+  background-repeat: no-repeat;
   background-size: cover;
   filter: blur(3px);
 }
@@ -75,8 +77,8 @@ header {
   top: -100px;
   color: white;
   text-align: center;
-  font-size: 3rem;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 3.5rem;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
 }
 
 @media screen and (max-width: 992px) {
