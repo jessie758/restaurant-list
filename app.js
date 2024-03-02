@@ -10,29 +10,41 @@ app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+
+const handlebars = require('handlebars');
+handlebars.registerHelper('equal', (arg1, arg2) => {
+  return arg1 === arg2;
+});
 
 app.get('/', (req, res) => {
   return res.redirect('/restaurants');
 });
 
-app.get('/restaurants', (req, res) => {
-  return Restaurant.findAll({
-    attributes: [
-      'id',
-      'name',
-      'name_en',
-      'category',
-      'image',
-      'location',
-      'phone',
-      'google_map',
-      'rating',
-      'description',
-    ],
-    raw: true,
-  })
-    .then((restaurants) => res.render('index', { restaurants }))
-    .catch((err) => console.log(err));
+app.get('/restaurants', async (req, res) => {
+  const searchType = req.query.searchType;
+  const keyword = req.query.keyword?.trim().toLowerCase();
+
+  try {
+    let restaurants = await Restaurant.findAll({
+      attributes: ['id', 'name', 'category', 'image', 'rating'],
+      raw: true,
+    });
+
+    if (searchType === 'name') {
+      restaurants = restaurants.filter((item) =>
+        item.name.toLowerCase().includes(keyword)
+      );
+    } else if (searchType === 'category') {
+      restaurants = restaurants.filter((item) =>
+        item.category.toLowerCase().includes(keyword)
+      );
+    }
+
+    return res.render('index', { restaurants, searchType });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.get('/restaurants/:id', (req, res) => {
@@ -42,13 +54,11 @@ app.get('/restaurants/:id', (req, res) => {
     attributes: [
       'id',
       'name',
-      'name_en',
       'category',
       'image',
       'location',
       'phone',
       'google_map',
-      'rating',
       'description',
     ],
     raw: true,
