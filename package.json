@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "seed": "npx sequelize db:seed --seed 20240302133823-initial-data.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
