@@ -59,12 +59,29 @@ header {
 
 .card img {
   height: 180px;
+  background-image: url('https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .card-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.card-btn {
+  display: flex;
+  justify-content: end;
+  padding-top: 10px;
+  border-top: 1px solid #cccccc;
+}
+
+.card-btn .btn {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .restaurant-category {

@@ -47,6 +47,17 @@ app.get('/restaurants', async (req, res) => {
   }
 });
 
+app.get('/restaurants/new', (req, res) => {
+  const form = {
+    action: '/restaurants',
+    method: 'POST',
+    title: '新增餐廳',
+    type: 'new',
+  };
+
+  return res.render('form', { form });
+});
+
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id;
 
@@ -64,6 +75,14 @@ app.get('/restaurants/:id', (req, res) => {
     raw: true,
   })
     .then((restaurant) => res.render('restaurant', { restaurant }))
+    .catch((err) => console.log(err));
+});
+
+app.post('/restaurants', (req, res) => {
+  const data = req.body;
+
+  return Restaurant.create({ ...data })
+    .then(() => res.redirect('/restaurants'))
     .catch((err) => console.log(err));
 });
 
