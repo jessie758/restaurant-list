@@ -60,8 +60,8 @@
                 <a href="/restaurants/{{restaurant.id}}" class="btn btn-light">
                   詳情
                 </a>
-                <form action="" method="">
-                  <button type="submit" onclick="confirmDelete({{restaurant.id}})" class="btn btn-light">
+                <form action="" method="POST" id="delete-form">
+                  <button type="button" onclick="confirmDelete({{restaurant.id}})" class="btn btn-light">
                     刪除
                   </button>
                 </form>
@@ -77,3 +77,13 @@
     <h2 class="text-center">沒有搜尋到相關的餐廳</h2>
   {{/if}}
 </div>
+
+<script>
+  function confirmDelete(id) {
+    if (confirm('確定要刪除嗎？')) {
+      const form = document.getElementById('delete-form');
+      form.action = `/restaurants/${id}?_method=DELETE`;
+      form.submit();
+    }
+  }
+</script>
