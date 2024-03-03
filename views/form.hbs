@@ -101,7 +101,7 @@
         <div class="row mb-3">
           <label for="description" class="col-sm-4 col-form-label">額外資訊</label>
           <div class="col-sm-8">
-            <textarea rows="3" class="form-control" id="description" name="description" value="{{description}}" placeholder="此處可輸入額外資訊"></textarea>
+            <textarea rows="3" class="form-control" id="description" name="description" placeholder="此處可輸入額外資訊">{{description}}</textarea>
           </div>
         </div>
       </div>
@@ -126,7 +126,7 @@
         </button>
         {{/if}}
 
-        <a href="/restaurants">
+        <a href="/restaurants/{{id}}">
           <button type="button" class="btn btn-secondary ms-3">
             <i class="fas fa-times mx-1"></i>取消
           </button>

@@ -98,6 +98,13 @@ header {
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
 }
 
+.restaurant-btn {
+  display: flex;
+  justify-content: end;
+  padding-top: 10px;
+  border-top: 1px solid #cccccc;
+}
+
 @media screen and (max-width: 992px) {
   .card img {
     height: 115px;

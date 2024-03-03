@@ -4,7 +4,7 @@
 </h1>
 
 {{!-- restaurant detail --}}
-<div class="container">
+<div class="container m-5">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
 
@@ -47,4 +47,19 @@
 
     </div>
   </div>
+</div>
+
+{{!-- buttons --}}
+<div class="restaurant-btn m-5">
+  <a href="/restaurants/{{restaurant.id}}/edit" class="btn btn-success">
+    <i class="fas fa-edit mx-1"></i>編輯
+  </a>
+  <form action="" method="" class="ms-3">
+    <button type="submit" onclick="confirmDelete({{restaurant.id}})" class="btn btn-danger">
+      <i class="fas fa-trash-alt mx-1"></i>刪除
+    </button>
+  </form>
+  <a href="/restaurants" class="btn btn-secondary ms-3">
+    <i class="fas fa-home mx-1"></i>返回首頁
+  </a>
 </div>
