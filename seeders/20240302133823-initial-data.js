@@ -1,6 +1,6 @@
 'use strict';
 
-const rawData = require('../public/jsons/restaurant.json');
+const rawData = require('./seeds/restaurant.json');
 const initialData = rawData.results;
 
 /** @type {import('sequelize-cli').Migration} */
