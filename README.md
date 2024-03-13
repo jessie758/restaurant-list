@@ -4,27 +4,34 @@
 
 ## 功能
 
-- 使用者可以瀏覽全部餐廳，或是單一餐廳的詳細資訊。
-- 使用者可以新增、編輯餐廳的資訊，或是刪除特定餐廳的資料。
+- 瀏覽全部餐廳，或是單一餐廳的詳細資訊。
+- 新增、編輯餐廳的資訊，或是刪除特定餐廳的資料。
+- 可透過餐廳地址 URL 連結到 Google 地圖。
+- 可透過名稱或類別搜尋餐廳。
+- 可按照指定順序排序餐廳。
+
+## 環境要求
+
+- Node.js v18
+- MySQL v8
 
 ## 安裝
 
-1. clone 本專案並 cd 至專案資料夾。
-
-2. 執行以下命令安裝相關套件。
+1. clone 本專案後 cd 至專案資料夾，並執行以下命令安裝相關套件。
 
 ```
 npm install
 ```
 
-3. 至 `config/config.json` 檔案調整資料庫相關設定，並執行以下命令進行資料庫環境建置。
+2. 至 `config/config.json` 檔案調整資料庫相關設定，並執行以下命令進行資料庫環境建置。
 
 ```
-npx sequelize db:migrate;
-npx sequelize db:seed:all;
+npm run db_setup
 ```
 
-4. 使用以下命令來執行本專案。
+3. 依照 .env.example 範例創建 .env 檔。
+
+4. 設置環境變數 NODE_ENV=development，並使用以下命令來執行本專案。
 
 ```
 npm run start
@@ -35,11 +42,14 @@ npm run start
 ## 開發工具
 
 - Node.js v18
-- MySQL server v8
+- MySQL v8
 - express v4.18.3
 - express-handlebars v7.1.2
 - sequelize v6.37.1
 - mysql2 v3.9.2
 - method-override v3.0.0
+- express-session v1.18.0
+- connect-flash v0.1.1
+- dotenv v16.4.5
 - bootstrap v5.2.1
 - font-awesome v5.8.1
