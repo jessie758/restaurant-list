@@ -30,7 +30,6 @@
 
 {{!-- Restaurant List --}}
 <div class="container mt-5">
-
   {{#if restaurants.length}}
     <div class="row">
       <div class="col-md-10 col-12 mx-auto">
@@ -78,6 +77,9 @@
   {{/if}}
 </div>
 
+{{!-- Pagination --}}
+<ul class="pagination d-flex justify-content-center align-items-center my-5"></ul>
+
 <script>
   function confirmDelete(id) {
     if (confirm('確定要刪除嗎？')) {
@@ -85,5 +87,23 @@
       form.action = `/restaurants/${id}?_method=DELETE`;
       form.submit();
     }
+  }
+
+  const pagination = document.querySelector('.pagination');
+  for (let i = 0; i < parseInt("{{pages}}"); i++) {
+    const listEle = document.createElement('li');
+    listEle.innerHTML = `
+      <form action="/restaurants" method="GET" style="cursor: pointer;">
+        <input type="hidden" name="searchType" value="{{searchType}}" />
+        <input type="hidden" name="keyword" value="{{keyword}}" />
+        <input type="hidden" name="page" value="${i + 1}" />
+        <button type="submit" style="all: unset;">
+          <a class="page-link ${i + 1 === parseInt("{{page}}") && 'active'}">
+            ${i + 1}
+          </a>
+        </button>
+      </form>
+    `;
+    pagination.appendChild(listEle);
   }
 </script>

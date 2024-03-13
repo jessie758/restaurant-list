@@ -4,27 +4,38 @@ const router = express.Router();
 const db = require('../models');
 const Restaurant = db.Restaurant;
 
+const { Op } = require('sequelize');
+
 router.get('/', async (req, res, next) => {
   try {
     const searchType = req.query.searchType;
     const keyword = req.query.keyword?.trim().toLowerCase();
-
-    let restaurants = await Restaurant.findAll({
-      attributes: ['id', 'name', 'category', 'image', 'rating'],
-      raw: true,
-    });
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6;
+    const condition = {};
 
     if (searchType === 'name') {
-      restaurants = restaurants.filter((item) =>
-        item.name.toLowerCase().includes(keyword)
-      );
+      condition.name = { [Op.like]: `%${keyword}%` };
     } else if (searchType === 'category') {
-      restaurants = restaurants.filter((item) =>
-        item.category.toLowerCase().includes(keyword)
-      );
+      condition.category = { [Op.like]: `%${keyword}%` };
     }
 
-    return res.render('index', { restaurants, searchType });
+    const { count, rows } = await Restaurant.findAndCountAll({
+      attributes: ['id', 'name', 'category', 'image', 'rating'],
+      where: condition,
+      offset: (page - 1) * limit,
+      limit,
+      raw: true,
+    });
+    const pages = Math.ceil(count / limit);
+
+    return res.render('index', {
+      restaurants: rows,
+      searchType,
+      keyword,
+      page,
+      pages,
+    });
   } catch (error) {
     error.errorMessage = '無法瀏覽餐廳清單！';
     next(error);
