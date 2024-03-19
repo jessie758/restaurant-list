@@ -5,8 +5,12 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "seed": "npx sequelize db:seed --seed 20240302133823-initial-data.js",
+    "start_dev": "NODE_ENV=development node app.js",
+    "dev": "NODE_ENV=development nodemon app.js",
+    "db_setup": "node create-db.js && npx sequelize db:migrate && npx sequelize db:seed:all",
+    "db_create": "node create-db.js",
+    "db_migrate": "npx sequelize db:migrate",
+    "db_seed": "npx sequelize db:seed:all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
