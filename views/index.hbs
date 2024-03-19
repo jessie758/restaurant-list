@@ -2,11 +2,20 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/restaurants" method="GET">
-        <h4 class="mb-2">尋找餐廳：</h4>
+      <form action="/restaurants" method="GET" id="order-search-form">
+        <div class="d-flex justify-content-between align-items-center my-2">
+          <h4 class="mb-0">尋找餐廳：</h4>
+          <select name="sort" class="form-control form-select w-25" onchange="sortRestaurant()">
+            <option value="" disabled selected>排序</option>
+            <option value="asc" {{#if (equal sort 'asc')}}selected{{/if}}>A → Z</option>
+            <option value="desc" {{#if (equal sort 'desc')}}selected{{/if}}>Z → A</option>
+            <option value="category" {{#if (equal sort 'category')}}selected{{/if}}>類別</option>
+            <option value="location" {{#if (equal sort 'location')}}selected{{/if}}>地區</option>
+          </select>
+        </div>
 
         <div class="input-group">
-          <select name="searchType" class="search-type-option">
+          <select name="searchType" class="form-control form-select">
             <option value="name" {{#if (equal searchType 'name')}}selected{{/if}}>
               搜尋餐廳名稱
             </option>
@@ -81,6 +90,11 @@
 <ul class="pagination d-flex justify-content-center align-items-center my-5"></ul>
 
 <script>
+  function sortRestaurant() {
+    const form = document.getElementById('order-search-form');
+    form.submit();
+  }
+  
   function confirmDelete(id) {
     if (confirm('確定要刪除嗎？')) {
       const form = document.getElementById('delete-form');
@@ -96,6 +110,7 @@
       <form action="/restaurants" method="GET" style="cursor: pointer;">
         <input type="hidden" name="searchType" value="{{searchType}}" />
         <input type="hidden" name="keyword" value="{{keyword}}" />
+        <input type="hidden" name="sort" value="{{sort}}" />
         <input type="hidden" name="page" value="${i + 1}" />
         <button type="submit" style="all: unset;">
           <a class="page-link ${i + 1 === parseInt("{{page}}") && 'active'}">

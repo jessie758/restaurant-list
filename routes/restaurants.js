@@ -10,18 +10,39 @@ router.get('/', async (req, res, next) => {
   try {
     const searchType = req.query.searchType;
     const keyword = req.query.keyword?.trim().toLowerCase();
+    const sort = req.query.sort;
     const page = parseInt(req.query.page) || 1;
     const limit = 6;
     const condition = {};
+    const order = [];
 
-    if (searchType === 'name') {
-      condition.name = { [Op.like]: `%${keyword}%` };
-    } else if (searchType === 'category') {
-      condition.category = { [Op.like]: `%${keyword}%` };
+    switch (searchType) {
+      case 'name':
+        condition.name = { [Op.like]: `%${keyword}%` };
+        break;
+      case 'category':
+        condition.category = { [Op.like]: `%${keyword}%` };
+        break;
+    }
+
+    switch (sort) {
+      case 'asc':
+        order.push(['name', 'ASC']);
+        break;
+      case 'desc':
+        order.push(['name', 'DESC']);
+        break;
+      case 'category':
+        order.push(['category', 'ASC']);
+        break;
+      case 'location':
+        order.push(['location', 'ASC']);
+        break;
     }
 
     const { count, rows } = await Restaurant.findAndCountAll({
       attributes: ['id', 'name', 'category', 'image', 'rating'],
+      order: order,
       where: condition,
       offset: (page - 1) * limit,
       limit,
@@ -31,6 +52,7 @@ router.get('/', async (req, res, next) => {
 
     return res.render('index', {
       restaurants: rows,
+      sort,
       searchType,
       keyword,
       page,
