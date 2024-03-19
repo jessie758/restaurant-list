@@ -126,6 +126,12 @@ router.post('/', async (req, res, next) => {
   try {
     const data = req.body;
 
+    const isValid = verifyData(data);
+    if (!isValid) {
+      req.flash('error', '請輸入正確的餐廳資料！');
+      return res.redirect('back');
+    }
+
     await Restaurant.create({ ...data });
     req.flash('success', '新增成功！');
     return res.redirect('/restaurants');
@@ -139,6 +145,12 @@ router.put('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
     const data = req.body;
+
+    const isValid = verifyData(data);
+    if (!isValid) {
+      req.flash('error', '請輸入正確的餐廳資料！');
+      return res.redirect('back');
+    }
 
     await Restaurant.update({ ...data }, { where: { id } });
     req.flash('success', '修改成功！');
@@ -161,5 +173,28 @@ router.delete('/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+function verifyData(data) {
+  for (let key in data) {
+    switch (key) {
+      case 'name':
+        if (!data[key] || typeof data[key] !== 'string') return false;
+        break;
+      case 'rating':
+        if (
+          isNaN(Number(data[key])) ||
+          Number(data[key]) < 1 ||
+          Number(data[key]) > 5
+        )
+          return false;
+        break;
+      default:
+        if (typeof data[key] !== 'string') return false;
+        break;
+    }
+  }
+
+  return true;
+}
 
 module.exports = router;
