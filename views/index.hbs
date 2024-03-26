@@ -82,7 +82,11 @@
       </div>
     </div>
   {{else}}
-    <h2 class="text-center">沒有搜尋到相關的餐廳</h2>
+    {{#if keyword}}
+      <h2 class="text-center">沒有搜尋到相關的餐廳</h2>
+    {{else}}
+      <h2 class="text-center">尚未新增餐廳資料</h2>
+    {{/if}}
   {{/if}}
 </div>
 

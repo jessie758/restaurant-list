@@ -4,9 +4,12 @@ const router = express.Router();
 const db = require('../models');
 const User = db.User;
 
+const passport = require('../config/passport');
 const bcrypt = require('bcryptjs');
 
 router.get('/signup', (req, res) => res.render('signup'));
+
+router.get('/login', (req, res) => res.render('login'));
 
 router.post('/signup', async (req, res, next) => {
   try {
@@ -41,5 +44,14 @@ router.post('/signup', async (req, res, next) => {
     next(error);
   }
 });
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/restaurants',
+    failureRedirect: '/users/login',
+    failureFlash: true,
+  })
+);
 
 module.exports = router;

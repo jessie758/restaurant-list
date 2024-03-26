@@ -8,12 +8,14 @@ const { Op } = require('sequelize');
 
 router.get('/', async (req, res, next) => {
   try {
+    const userId = req.user.id;
     const searchType = req.query.searchType;
     const keyword = req.query.keyword?.trim().toLowerCase();
     const sort = req.query.sort;
     const page = parseInt(req.query.page) || 1;
     const limit = 6;
-    const condition = {};
+
+    const condition = { userId: userId };
     const order = [];
 
     switch (searchType) {
@@ -100,7 +102,7 @@ router.get('/:id', async (req, res, next) => {
 router.get('/:id/edit', async (req, res, next) => {
   try {
     const id = req.params.id;
- 
+
     const restaurant = await Restaurant.findByPk(id, { raw: true });
     return res.render('edit-restaurant', { ...restaurant });
   } catch (error) {

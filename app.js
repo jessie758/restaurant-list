@@ -11,6 +11,7 @@ const { engine } = require('express-handlebars');
 const handlebars = require('handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const passport = require('./config/passport');
 const flash = require('connect-flash');
 const messageHandler = require('./middlewares/message-handler');
 const errorHandler = require('./middlewares/error-handler');
@@ -34,6 +35,8 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 
 app.use(messageHandler);
