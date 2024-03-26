@@ -7,11 +7,7 @@ const User = db.User;
 const passport = require('../config/passport');
 const bcrypt = require('bcryptjs');
 
-router.get('/signup', (req, res) => res.render('signup'));
-
-router.get('/login', (req, res) => res.render('login'));
-
-router.post('/signup', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const { name, email, password, checkPassword } = req.body;
 
@@ -25,8 +21,8 @@ router.post('/signup', async (req, res, next) => {
       return res.redirect('back');
     }
 
-    const user = await User.findOne({ where: { email } });
-    if (user) {
+    const count = await User.count({ where: { email } });
+    if (count > 0) {
       req.flash('error', 'Email 已被註冊！');
       return res.redirect('back');
     }
@@ -38,20 +34,11 @@ router.post('/signup', async (req, res, next) => {
     });
 
     req.flash('success', '註冊成功！');
-    return res.redirect('/restaurants');
+    return res.redirect('/login');
   } catch (error) {
     error.errorMessage = '註冊失敗！';
     next(error);
   }
 });
-
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/restaurants',
-    failureRedirect: '/users/login',
-    failureFlash: true,
-  })
-);
 
 module.exports = router;

@@ -3,12 +3,12 @@ const router = express.Router();
 
 const restaurants = require('./restaurants');
 const users = require('./users');
+const root = require('./root');
 
 const authHandler = require('../middlewares/auth-handler');
 
 router.use('/restaurants', authHandler, restaurants);
 router.use('/users', users);
-
-router.get('/', (req, res) => res.redirect('/restaurants'));
+router.use('/', root);
 
 module.exports = router;

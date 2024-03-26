@@ -1,12 +1,6 @@
 <div class='container position-absolute top-80 start-50 translate-middle p-5'>
   <div class='card m-5 p-5'>
-    <form
-      action='/users/signup'
-      method='POST'
-      id='form'
-      class='form'
-      novalidate
-    >
+    <form action='/users' method='POST' id='form' class='form' novalidate>
       <div class='mb-5'>
         <h3>註冊</h3>
       </div>
@@ -70,7 +64,7 @@
       <div class='d-flex align-items-center'>
         <button type='submit' class='btn btn-info text-white'>註冊</button>
         <div class='ms-3'>
-          已經有帳號？<a href='/users/login' class='text-info'>登入</a>
+          已經有帳號？<a href='/login' class='text-info'>登入</a>
         </div>
       </div>
     </form>
