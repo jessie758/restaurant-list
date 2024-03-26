@@ -37,6 +37,26 @@
 
       <div class='d-flex align-items-center'>
         <button type='submit' class='btn btn-info text-white'>登入</button>
+
+        <button
+          type='button'
+          id='fb-login-btn'
+          class='btn text-white ms-3'
+          style='background-color: #5890FF;'
+        >
+          <i
+            class='fa-stack fs-6'
+            style='height: fit-content; line-height: unset;'
+          >
+            <i style='color: white;' class='fas fa-square fs-5'></i>
+            <i
+              style='color: #5890FF;'
+              class='fab fa-facebook-f fa-stack-1x'
+            ></i>
+          </i>
+          使用Facebook登入
+        </button>
+
         <div class='ms-3'>
           還沒有帳號？<a href='/signup' class='text-info'>註冊</a>
         </div>
@@ -45,4 +65,12 @@
   </div>
 </div>
 
+<form
+  action='/oauth/login/facebook'
+  method='GET'
+  id='fb-login-form'
+  class='d-none'
+></form>
+
 <script src='/javascripts/form.js'></script>
+<script src='/javascripts/fb-login.js'></script>
