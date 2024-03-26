@@ -1,0 +1,32 @@
+<div class="container px-5">
+  <div class="card m-5">
+    <form action="/restaurants" method="POST" id="form" class="form" novalidate>
+      {{!-- form title --}}
+      <div class="card-header">
+        <h4 class="mt-1 d-flex justify-content-center fw-bold">新增餐廳</h4>
+      </div>
+
+      {{!-- form body --}}
+      <div class="card-body m-3">
+        {{> restaurant-form}}
+      </div>
+
+      {{!-- form footer --}}
+      <div class="card-footer d-flex justify-content-end">
+        <button type="submit" class="btn btn-success">
+          <i class="fas fa-plus mx-1"></i>新增
+        </button>
+        <button type="reset" class="btn btn-danger ms-3" id="clear-btn">
+          <i class="fas fa-eraser mx-1"></i>清除
+        </button>
+        <a href="/restaurants/{{id}}">
+          <button type="button" class="btn btn-secondary ms-3">
+            <i class="fas fa-times mx-1"></i>取消
+          </button>
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/javascripts/form.js"></script>

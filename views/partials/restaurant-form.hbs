@@ -1,0 +1,96 @@
+{{!-- restaurant name --}}
+<div class="row mb-3">
+  <label for="name" class="col-sm-4 col-form-label">餐廳名稱 *</label>
+  <div class="col-sm-8">
+    <input type="text" class="form-control" id="name" name="name" value="{{name}}" placeholder="請輸入餐廳名稱" required />
+    <div class="invalid-feedback">
+      <i class="fas fa-exclamation mx-2"></i>餐廳名稱不可空白
+    </div>
+  </div>
+</div>
+
+{{!-- restaurant english name --}}
+<div class="row mb-3">
+  <label for="name_en" class="col-sm-4 col-form-label">英文名稱</label>
+  <div class="col-sm-8">
+    <input type="text" class="form-control" id="name_en" name="name_en" value="{{name_en}}" placeholder="請輸入餐廳的英文名稱" />
+  </div>
+</div>
+
+{{!-- restaurant category --}}
+<div class="row mb-3">
+  <label for="category" class="col-sm-4 col-form-label">餐廳類別</label>
+  <div class="col-sm-8">
+    <select class="form-control form-select" id="category" name="category">
+      <option value="" disabled selected>請選擇類別</option>
+      <option {{#if (equal category '中式料理')}}selected{{/if}}>中式料理</option>
+      <option {{#if (equal category '韓式料理')}}selected{{/if}}>韓式料理</option>
+      <option {{#if (equal category '日本料理')}}selected{{/if}}>日本料理</option>
+      <option {{#if (equal category '中東料理')}}selected{{/if}}>中東料理</option>
+      <option {{#if (equal category '義式餐廳')}}selected{{/if}}>義式餐廳</option>
+      <option {{#if (equal category '美式餐廳')}}selected{{/if}}>美式餐廳</option>
+      <option {{#if (equal category '法式餐廳')}}selected{{/if}}>法式餐廳</option>
+      <option {{#if (equal category '酒吧')}}selected{{/if}}>酒吧</option>
+      <option {{#if (equal category '咖啡')}}selected{{/if}}>咖啡</option>
+      <option {{#if (equal category '輕食')}}selected{{/if}}>輕食</option>
+      <option {{#if (equal category '其他')}}selected{{/if}}>其他</option>
+    </select>
+  </div>
+</div>
+
+{{!-- restaurant image --}}
+<div class="row mb-3">
+  <label for="image" class="col-sm-4 col-form-label">餐廳圖片</label>
+  <div class="col-sm-8">
+    <input type="url" class="form-control" id="image" name="image" value="{{image}}" placeholder="請輸入圖片網址" />
+    <div class="invalid-feedback">
+      <i class="fas fa-exclamation mx-2"></i>請輸入正確的圖片網址
+    </div>
+  </div>
+</div>
+
+{{!-- restaurant location --}}
+<div class="row mb-3">
+  <label for="location" class="col-sm-4 col-form-label">餐廳地址</label>
+  <div class="col-sm-8">
+    <input type="text" class="form-control" id="location" name="location" value="{{location}}" placeholder="請輸入餐廳地址" />
+  </div>
+</div>
+
+{{!-- restaurant contact phone --}}
+<div class="row mb-3">
+  <label for="phone" class="col-sm-4 col-form-label">餐廳電話</label>
+  <div class="col-sm-8">
+    <input type="text" class="form-control" id="phone" name="phone" value="{{phone}}" placeholder="請輸入餐廳電話" />
+  </div>
+</div>
+
+{{!-- google map link --}}
+<div class="row mb-3">
+  <label for="google_map" class="col-sm-4 col-form-label">Google Map 連結</label>
+  <div class="col-sm-8">
+    <input type="url" class="form-control" id="google_map" name="google_map" value="{{google_map}}" placeholder="請輸入 Google Map 連結" />
+    <div class="invalid-feedback">
+      <i class="fas fa-exclamation mx-2"></i>請輸入正確的連結網址
+    </div>
+  </div>
+</div>
+
+{{!-- restaurant rating --}}
+<div class="row mb-3">
+  <label for="rating" class="col-sm-4 col-form-label">餐廳評分</label>
+  <div class="col-sm-8">
+    <input type="number" min="1" max="5" step="0.1" class="form-control" id="rating" name="rating" value="{{rating}}" placeholder="請輸入評分（1.0~5.0）" required />
+    <div class="invalid-feedback">
+      <i class="fas fa-exclamation mx-2"></i>請輸入範圍內的數字
+    </div>
+  </div>
+</div>
+
+{{!-- restaurant description --}}
+<div class="row mb-3">
+  <label for="description" class="col-sm-4 col-form-label">額外資訊</label>
+  <div class="col-sm-8">
+    <textarea rows="3" class="form-control" id="description" name="description" placeholder="此處可輸入額外資訊">{{description}}</textarea>
+  </div>
+</div>
