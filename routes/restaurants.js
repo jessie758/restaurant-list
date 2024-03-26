@@ -113,6 +113,7 @@ router.get('/:id/edit', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    const userId = req.user.id;
     const data = req.body;
 
     const isValid = verifyData(data);
@@ -121,7 +122,7 @@ router.post('/', async (req, res, next) => {
       return res.redirect('back');
     }
 
-    await Restaurant.create({ ...data });
+    await Restaurant.create({ userId, ...data });
     req.flash('success', '新增成功！');
     return res.redirect('/restaurants');
   } catch (error) {
@@ -133,6 +134,7 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const id = req.params.id;
+    const userId = req.user.id;
     const data = req.body;
 
     const isValid = verifyData(data);
@@ -141,7 +143,18 @@ router.put('/:id', async (req, res, next) => {
       return res.redirect('back');
     }
 
-    await Restaurant.update({ ...data }, { where: { id } });
+    const restaurant = await Restaurant.findByPk(id);
+
+    if (!restaurant) {
+      req.flash('error', '此筆餐廳資料不存在！');
+      return res.redirect('back');
+    }
+    if (userId !== restaurant.userId) {
+      req.flash('error', '修改權限不足！');
+      return res.redirect('back');
+    }
+
+    await restaurant.update({ ...data });
     req.flash('success', '修改成功！');
     return res.redirect(`/restaurants/${id}`);
   } catch (error) {
