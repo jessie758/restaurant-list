@@ -18,4 +18,12 @@ router.post(
   })
 );
 
+router.post('/logout', (req, res, next) => {
+  req.flash('success', '登出成功！');
+  req.logout((err) => {
+    if (err) return next(err);
+    return res.redirect('/login');
+  });
+});
+
 module.exports = router;
